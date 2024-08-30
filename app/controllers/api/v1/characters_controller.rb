@@ -113,7 +113,7 @@ module Api
       private
 
       def character_params
-        params.require(:character).permit(:name, :hp, :eneru, :intuicao, :aura, :pontos, :nivel_de_despertar, :vida_atual, :eneru_atual)
+        params.require(:character).permit(:name, :hp, :eneru, :intuicao, :aura, :pontos, :nivel_de_despertar, :vida_atual, :eneru_atual, :user_id, :img_url)
       end
 
       def aura_extra_params
@@ -121,7 +121,7 @@ module Api
       end
 
       def item_params
-        params.require(:item).permit(:name, :descricao)
+        params.require(:item).permit(:name, :descricao, :img_url)
       end
     end
   end

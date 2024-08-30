@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_30_171055) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_30_183250) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -54,6 +54,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_30_171055) do
     t.integer "vida_atual"
     t.integer "eneru_atual"
     t.integer "agilidade"
+    t.bigint "user_id"
+    t.string "img_url"
+    t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -62,9 +65,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_30_171055) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "character_id", null: false
+    t.string "img_url"
     t.index ["character_id"], name: "index_items_on_character_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "senha"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "aura_extras", "characters"
+  add_foreign_key "characters", "users"
   add_foreign_key "items", "characters"
 end
