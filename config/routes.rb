@@ -13,6 +13,10 @@ Rails.application.routes.draw do
         member do
           get "aura_extras"
           post "aura_extras", to: "characters#create_aura_extra"
+          put "aura_extras/:aura_extra_id", to: "characters#update_aura_extra", as: :update_aura_extra
+          get "items"
+          post "items", to: "characters#create_item"
+          put "items/:item_id", to: "characters#update_item", as: :update_item
         end
       end
     end

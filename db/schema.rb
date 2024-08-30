@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_30_160344) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_30_171055) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -56,5 +56,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_30_160344) do
     t.integer "agilidade"
   end
 
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.string "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "character_id", null: false
+    t.index ["character_id"], name: "index_items_on_character_id"
+  end
+
   add_foreign_key "aura_extras", "characters"
+  add_foreign_key "items", "characters"
 end

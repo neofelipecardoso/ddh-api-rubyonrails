@@ -60,12 +60,55 @@ module Api
         aura_extra = character.aura_extras.new(aura_extra_params)
 
         if aura_extra.save
-          logger.debug "AuraExtra salva: #{aura_extra.inspect}"
           render json: aura_extra, status: :created
         else
           render json: aura_extra.errors, status: :unprocessable_entity
         end
       end
+
+      def update_aura_extra
+        character = Character.find(params[:id])
+        aura_extra = character.aura_extras.find(params[:aura_extra_id])
+
+        if aura_extra.update(aura_extra_params)
+          render json: aura_extra, status: :ok
+        else
+          render json: aura_extra.errors, status: :unprocessable_entity
+        end
+      end
+
+
+      # Item endpoints
+
+
+      def items
+        character = Character.find(params[:id])
+        render json: character.items
+      end
+
+      def create_item
+        character = Character.find(params[:id])
+        item = character.items.new(item_params)
+
+        if item.save
+          render json: item, status: :created
+        else
+          render json: item.errors, status: :unprocessable_entity
+        end
+      end
+
+      def update_item
+        character = Character.find(params[:id])
+        item = character.items.find(params[:item_id])
+
+        if item.update(item_params)
+          render json: item, status: :ok
+        else
+          render json: item.errors, status: :unprocessable_entity
+        end
+      end
+
+      # params
 
       private
 
@@ -75,6 +118,10 @@ module Api
 
       def aura_extra_params
         params.require(:aura_extra).permit(:name, :level)
+      end
+
+      def item_params
+        params.require(:item).permit(:name, :descricao)
       end
     end
   end
