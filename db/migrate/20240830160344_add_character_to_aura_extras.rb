@@ -1,0 +1,5 @@
+class AddCharacterToAuraExtras < ActiveRecord::Migration[7.2]
+  def change
+    add_reference :aura_extras, :character, null: false, foreign_key: true
+  end
+end

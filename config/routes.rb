@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   # root "posts#index"
   namespace :api do
     namespace :v1 do
-      resources :characters, only: [ :index, :create, :destroy, :update, :show ]
+      resources :characters, only: [ :index, :create, :destroy, :update, :show ] do
+        member do
+          get "aura_extras"
+          post "aura_extras", to: "characters#create_aura_extra"
+        end
+      end
     end
   end
 end

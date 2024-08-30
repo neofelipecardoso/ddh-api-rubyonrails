@@ -43,10 +43,38 @@ module Api
         head :no_content
       end
 
+
+
+      # Aura extra endpoints
+
+
+      # GET /characters/:id/aura_extras
+      def aura_extras
+        character = Character.find(params[:id])
+        render json: character.aura_extras
+      end
+
+      # POST /characters/:id/aura_extras
+      def create_aura_extra
+        character = Character.find(params[:id])
+        aura_extra = character.aura_extras.new(aura_extra_params)
+
+        if aura_extra.save
+          logger.debug "AuraExtra salva: #{aura_extra.inspect}"
+          render json: aura_extra, status: :created
+        else
+          render json: aura_extra.errors, status: :unprocessable_entity
+        end
+      end
+
       private
 
       def character_params
         params.require(:character).permit(:name, :hp, :eneru, :intuicao, :aura, :pontos, :nivel_de_despertar, :vida_atual, :eneru_atual)
+      end
+
+      def aura_extra_params
+        params.require(:aura_extra).permit(:name, :level)
       end
     end
   end

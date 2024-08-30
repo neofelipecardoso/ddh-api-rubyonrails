@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_30_152347) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_30_160344) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_30_152347) do
   enable_extension "supabase_vault"
   enable_extension "uuid-ossp"
 
+  create_table "aura_extras", force: :cascade do |t|
+    t.string "name"
+    t.integer "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "character_id", null: false
+    t.index ["character_id"], name: "index_aura_extras_on_character_id"
+  end
+
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "hp"
@@ -46,4 +55,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_30_152347) do
     t.integer "eneru_atual"
     t.integer "agilidade"
   end
+
+  add_foreign_key "aura_extras", "characters"
 end
